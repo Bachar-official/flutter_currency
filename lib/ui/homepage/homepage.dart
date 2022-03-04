@@ -1,6 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_currency/domain/repository/net_repository.dart';
 
 import '../../constants/currency_dictionary.dart';
+import '../../entities/currency.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -29,13 +32,19 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    Currency currency = Currency(name: 'RUB', price: 0);
+    NetRepository repository = NetRepository(dio: Dio());
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: DropdownButtonFormField<String>(
-          onChanged: (value) => onChangeQuery(value),
-          items: getCurrencies(),
-          value: currencyDictionary.values.toList()[0],
+        child: ElevatedButton(
+          child: const Text('Get'),
+          onPressed: () async {
+            var currencies = await repository.getHistoricalCurrency(
+                currency: currency,
+                from: DateTime.parse('2020-01-01'),
+                to: DateTime.parse('2022-01-01'));
+          }
         ),
       )
     );

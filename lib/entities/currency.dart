@@ -1,5 +1,5 @@
 class Currency {
   late String name;
-  late double price;
+  late num price;
   Currency({required this.name, required this.price});
 }
