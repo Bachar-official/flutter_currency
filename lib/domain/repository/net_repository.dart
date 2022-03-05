@@ -10,7 +10,7 @@ class NetRepository {
 
   NetRepository({required this.dio});
 
-  Future<List<Currency>> getLatestCurrency(Currency currency) async {
+  Future<List<Currency>> getLatestCurrency(String currency) async {
     var response = await dio.get(Urls.getLatestCurrencyWithBase(currency));
     if (response.statusCode == 200) {
       var map = response.data['data'] as Map;

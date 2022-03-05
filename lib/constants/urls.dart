@@ -5,8 +5,8 @@ class Urls {
   static const _baseUrl = 'https://freecurrencyapi.net/api/v2';
   static const _apiKey = 'f0f26a90-9aba-11ec-841c-699a0d7f059c';
 
-  static String getLatestCurrencyWithBase(Currency currency) {
-    return '$_baseUrl/latest?apikey=$_apiKey&base_currency=${currency.name}';
+  static String getLatestCurrencyWithBase(String currency) {
+    return '$_baseUrl/latest?apikey=$_apiKey&base_currency=$currency';
   }
 
   static String getHistoricalCurrency({

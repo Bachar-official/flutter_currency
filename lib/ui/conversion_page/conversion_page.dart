@@ -14,33 +14,40 @@ class ConversionPage extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
           body: Column(
             children: [
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      AutocompleteWithDecoration<String, String>(
-                        currencyOptionBuilder: model.currencyOptionBuilder,
-                        displayCurrencyOption: model.displayCurrencyOption,
-                        setCurrency: model.setBaseCurrency,
-                        onSelected: (currency) {
-                          model.setBaseCurrency(currency.key);
-                        },
-                        hintText: 'Валюта-источник',
-                      ),
-                      AutocompleteWithDecoration<String, String>(
-                        currencyOptionBuilder: model.currencyOptionBuilder,
-                        displayCurrencyOption: model.displayCurrencyOption,
-                        setCurrency: model.setDestinationCurrency,
-                        onSelected: (currency) {
-                          model.setDestinationCurrency(currency.key);
-                        },
-                        hintText: 'Валюта-приёмник',
-                      ),
-                    ],
-                  ),
-                  //IconButton(onPressed: () {}, icon: const Icon(Icons.refresh)),
-                ],
+              TextFormField(
+                onChanged: (value) => model.setAmount(value),
+                initialValue: model.amount.toString(),
+                keyboardType: const TextInputType.numberWithOptions(),
+                decoration: const InputDecoration(
+                  helperText: 'Количество валюты'
+                ),
               ),
+              AutocompleteWithDecoration<String, String>(
+                currencyOptionBuilder: model.currencyOptionBuilder,
+                displayCurrencyOption: model.displayCurrencyOption,
+                setCurrency: model.setBaseCurrency,
+                onSelected: (currency) {
+                  model.setBaseCurrency(currency.key);
+                },
+                hintText: 'Исходная валюта',
+                value: model.baseCurrency,
+              ),
+              AutocompleteWithDecoration<String, String>(
+                currencyOptionBuilder: model.currencyOptionBuilder,
+                displayCurrencyOption: model.displayCurrencyOption,
+                setCurrency: model.setDestinationCurrency,
+                onSelected: (currency) {
+                  model.setDestinationCurrency(currency.key);
+                },
+                hintText: 'Желаемая валюта',
+                value: model.destinationCurrency,
+              ),
+              ElevatedButton(
+                  onPressed: model.getLatestCurrency,
+                  child: const Text('Конвертировать')),
+              
+              model.exchange == 0 ?
+                  const Text('Ещё не искали') : Text(model.exchange.toString())
             ],
           ),
       ),

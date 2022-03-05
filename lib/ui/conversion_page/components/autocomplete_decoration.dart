@@ -8,20 +8,24 @@ class AutocompleteWithDecoration<K,V> extends StatelessWidget {
   final void Function(MapEntry<K,V>) onSelected;
   final void Function(String) setCurrency;
   final String? hintText;
+  final String? value;
 
   const AutocompleteWithDecoration({
     required this.displayCurrencyOption,
     required this.currencyOptionBuilder,
     required this.onSelected,
     required this.setCurrency,
+    this.value,
     this.hintText, Key? key}): super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     return InputDecorator(
       decoration: InputDecoration(
-          //contentPadding: const EdgeInsets.symmetric(vertical: 0,horizontal: 4),
-          helperText: hintText,
+        contentPadding: EdgeInsets.zero,
+        border: InputBorder.none,
+        helperText: hintText,
       ),
       child: Autocomplete<MapEntry<K, V>>(
         displayStringForOption: displayCurrencyOption,
@@ -29,6 +33,7 @@ class AutocompleteWithDecoration<K,V> extends StatelessWidget {
         onSelected: (currency) {
           setCurrency(currency.key.toString().toUpperCase());
         },
+        initialValue: TextEditingValue(text: value!),
       ),
     );
   }
