@@ -23,7 +23,11 @@ class NetRepository {
     required Currency currency,
     required DateTime from,
     required DateTime to}) async {
-    var response = await dio.get(Urls.getHistoricalCurrency(currency: currency, from: from, to: to));
+    var response = await dio.get(Urls.getHistoricalCurrency(
+        currency: currency,
+        from: from,
+        to: to
+    ));
     if (response.statusCode == 200) {
       var map = response.data['data'] as Map;
       return map.entries.map((element) => DailyCurrency.parsed(
