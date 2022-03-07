@@ -14,24 +14,31 @@ class ConversionPage extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
           body: Column(
             children: [
-              TextFormField(
-                onChanged: (value) => model.setAmount(value),
-                initialValue: model.amount.toString(),
-                keyboardType: const TextInputType.numberWithOptions(),
-                decoration: const InputDecoration(
-                  helperText: 'Количество валюты'
-                ),
+              Row(
+                children: [
+                  Flexible(child: TextFormField(
+                    onChanged: (value) => model.setAmount(value),
+                    initialValue: model.amount.toString(),
+                    keyboardType: const TextInputType.numberWithOptions(),
+                    decoration: const InputDecoration(
+                        helperText: 'Количество валюты'
+                    ),
+                  ),),
+                  Flexible(
+                    child: AutocompleteWithDecoration<String, String>(
+                      currencyOptionBuilder: model.currencyOptionBuilder,
+                      displayCurrencyOption: model.displayCurrencyOption,
+                      setCurrency: model.setBaseCurrency,
+                      onSelected: (currency) {
+                        model.setBaseCurrency(currency.key);
+                      },
+                      hintText: 'Исходная валюта',
+                      value: model.baseCurrency,
+                    ),
+                  )
+                ],
               ),
-              AutocompleteWithDecoration<String, String>(
-                currencyOptionBuilder: model.currencyOptionBuilder,
-                displayCurrencyOption: model.displayCurrencyOption,
-                setCurrency: model.setBaseCurrency,
-                onSelected: (currency) {
-                  model.setBaseCurrency(currency.key);
-                },
-                hintText: 'Исходная валюта',
-                value: model.baseCurrency,
-              ),
+
               AutocompleteWithDecoration<String, String>(
                 currencyOptionBuilder: model.currencyOptionBuilder,
                 displayCurrencyOption: model.displayCurrencyOption,
@@ -45,7 +52,7 @@ class ConversionPage extends StatelessWidget {
               ElevatedButton(
                   onPressed: model.getLatestCurrency,
                   child: const Text('Конвертировать')),
-              
+
               model.exchange == 0 ?
                   const Text('Ещё не искали') : Text(model.exchange.toString())
             ],

@@ -10,8 +10,8 @@ import '../../constants/currency_dictionary.dart';
 class ConversionPageViewModel extends ChangeNotifier {
   late Dio _dio;
   late NetRepository _repository;
-  String _baseCurrency = 'RUB';
-  String _destinationCurrency = 'USD';
+  String _baseCurrency = 'USD';
+  String _destinationCurrency = 'RUB';
   num _amount = 1;
   num _multiplier = 0;
   bool _isLoading = false;

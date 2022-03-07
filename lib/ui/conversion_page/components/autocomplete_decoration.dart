@@ -18,7 +18,6 @@ class AutocompleteWithDecoration<K,V> extends StatelessWidget {
     this.value,
     this.hintText, Key? key}): super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return InputDecorator(
@@ -28,6 +27,11 @@ class AutocompleteWithDecoration<K,V> extends StatelessWidget {
         helperText: hintText,
       ),
       child: Autocomplete<MapEntry<K, V>>(
+        fieldViewBuilder: (context, controller, node, onFieldSubmitted) =>
+        TextField(
+          controller: controller,
+          focusNode: node,
+        ),
         displayStringForOption: displayCurrencyOption,
         optionsBuilder: currencyOptionBuilder,
         onSelected: (currency) {
