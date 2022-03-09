@@ -23,10 +23,21 @@ class ConversionPageViewModel extends ChangeNotifier {
   }
 
   bool get isLoading => _isLoading;
+  TextEditingController get baseController =>
+      TextEditingController(text: showStringCurrency(_baseCurrency));
+  TextEditingController get destinationController =>
+      TextEditingController(text: showStringCurrency(_destinationCurrency));
   String get baseCurrency => showStringCurrency(_baseCurrency);
   String get destinationCurrency => showStringCurrency(_destinationCurrency);
   num get amount => _amount;
   num get exchange => _multiplier * _amount;
+
+  void swapCurrencies() {
+    var temp = _baseCurrency;
+    _baseCurrency = destinationCurrency;
+    _destinationCurrency = temp;
+    notifyListeners();
+  }
 
   void _setLoading() {
     _isLoading = true;

@@ -2,7 +2,7 @@ import 'package:flutter_currency/entities/currency.dart';
 import 'package:intl/intl.dart';
 
 class Urls {
-  static const _baseUrl = 'https://freecurrencyapi.net/api/v2';
+  static const _baseUrl = 'https://api.currencyapi.com/v3';
   static const _apiKey = 'f0f26a90-9aba-11ec-841c-699a0d7f059c';
 
   static String getLatestCurrencyWithBase(String currency) {

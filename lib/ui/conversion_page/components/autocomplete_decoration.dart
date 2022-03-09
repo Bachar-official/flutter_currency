@@ -9,12 +9,14 @@ class AutocompleteWithDecoration<K,V> extends StatelessWidget {
   final void Function(String) setCurrency;
   final String? hintText;
   final String? value;
+  final TextEditingController textController;
 
   const AutocompleteWithDecoration({
     required this.displayCurrencyOption,
     required this.currencyOptionBuilder,
     required this.onSelected,
     required this.setCurrency,
+    required this.textController,
     this.value,
     this.hintText, Key? key}): super(key: key);
 
