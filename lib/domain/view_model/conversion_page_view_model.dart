@@ -23,8 +23,6 @@ class ConversionPageViewModel extends ChangeNotifier {
   }
 
   bool get isLoading => _isLoading;
-  String get baseCurrency => showStringCurrency(_baseCurrency);
-  String get destinationCurrency => showStringCurrency(_destinationCurrency);
   num get amount => _amount;
   num get exchange => _multiplier * _amount;
 
@@ -51,29 +49,6 @@ class ConversionPageViewModel extends ChangeNotifier {
       _amount = 1;
       notifyListeners();
     }
-  }
-
-  void getLatestCurrency() async {
-    _setLoading();
-    _list = await _repository.getLatestCurrency(_baseCurrency);
-    _searchAndSetMultiplier();
-    _isLoading = false;
-    notifyListeners();
-  }
-
-  void _searchAndSetMultiplier() {
-    _multiplier = _list.where((element) =>
-    element.name == _destinationCurrency).first.price;
-  }
-
-  String showStringCurrency(String currency) {
-    return currencyDictionary.entries.where((element) =>
-    element.key == currency.toUpperCase()).first.value;
-  }
-
-  String displayCurrencyOption(MapEntry<String, String> entry) {
-    return currencyDictionary.entries.where((element) =>
-    element.key == entry.key).first.value;
   }
 
   FutureOr<Iterable<MapEntry<String, String>>> currencyOptionBuilder
