@@ -26,6 +26,12 @@ class ConversionPageViewModel extends ChangeNotifier {
   num get amount => _amount;
   num get exchange => _multiplier * _amount;
 
+  void swapCurrencies() {
+    var temp = _baseCurrency;
+    _destinationCurrency = temp;
+    notifyListeners();
+  }
+
   void _setLoading() {
     _isLoading = true;
     notifyListeners();
