@@ -18,8 +18,9 @@ class ConversionPage extends StatelessWidget {
         child: ElevatedButton(
           child: Text('Пыщь'),
           onPressed: () async {
-            var response = await repository.getCurrencies();
-            response.forEach(print);
+            // var response = await repository.getCurrencies();
+            // response.forEach(print);
+            await repository.getHistorical();
             },
         ),
       ),

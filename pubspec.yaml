@@ -30,7 +30,8 @@ dev_dependencies:
 flutter:
 
   assets:
-    - assets/api_key.txt
+    - lib/assets/api_key.txt
+
   uses-material-design: true
 
 

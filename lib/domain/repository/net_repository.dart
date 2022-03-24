@@ -17,4 +17,11 @@ class NetRepository {
     ).toList();
   }
 
+  Future<void> getHistorical() async {
+    var result = await dio.get(await Urls.getHistoricalCurrency(
+        Currency(name: '', id: 'USD'), Currency(name: '', id: 'RUB'),
+      DateTime(2022, 03, 20), DateTime.now()
+    ));
+    print(result.data);
+  }
 }
