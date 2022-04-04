@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_currency/constants/urls.dart';
 import 'package:flutter_currency/entities/currency.dart';
+import 'package:flutter_currency/entities/currency_pair.dart';
 
 class NetRepository {
   late final Dio dio;
@@ -11,10 +10,26 @@ class NetRepository {
 
   Future<List<Currency>> getCurrencies() async {
     var result = await dio.get(await Urls.getCurrencies());
-    var map = result.data['results'] as Map<String, dynamic>;
-    return map.entries.map(
-            (element) => Currency(name: element.value['currencyName'], id: element.value['id'])
-    ).toList();
+    if (result.statusCode == 200) {
+      var map = result.data['results'] as Map<String, dynamic>;
+      return map.entries.map(
+              (element) => Currency.fromJson(element.value)).toList();
+    } else {
+      return [];
+    }
+  }
+
+  Future<CurrencyPair> convert(Currency source, Currency destination) async {
+    var result = await dio.get(await Urls.getCurrencyConvert(source, destination));
+    if (result.statusCode == 200) {
+      var map = result.data as Map<String, dynamic>;
+      return CurrencyPair(
+          source: source,
+          destination: destination,
+          price: map.entries.first.value);
+    } else {
+      return CurrencyPair(source: source, destination: destination, price: 0);
+    }
   }
 
   Future<void> getHistorical() async {

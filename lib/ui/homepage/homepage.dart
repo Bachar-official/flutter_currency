@@ -28,7 +28,7 @@ class Homepage extends StatelessWidget {
     var provider = Provider.of<NavigationViewModel>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Валютко'),
+        title: const Text('Currency converter'),
       ),
       body: _getPage(provider.pageIndex),
       bottomNavigationBar:  BottomBar(

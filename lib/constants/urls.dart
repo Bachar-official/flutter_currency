@@ -28,8 +28,6 @@ class Urls {
     DateFormat formatter = DateFormat('yyyy-MM-dd');
     String strFrom = formatter.format(from);
     String strTo = formatter.format(to);
-    print('$_baseUrl/convert?q=${base.id}_${destination.id}&compact=ultra'
-        '&date=$strFrom&endDate=$strTo&apiKey=$apiKey');
     return '$_baseUrl/convert?q=${base.id}_${destination.id}&compact=ultra'
         '&date=$strFrom&endDate=$strTo&apiKey=$apiKey';
   }

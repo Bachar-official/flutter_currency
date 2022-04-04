@@ -3,8 +3,11 @@ class Currency {
   late String id;
   Currency({required this.name, required this.id});
 
+  factory Currency.fromJson(Map<String, dynamic> json) =>
+      Currency(name: json['currencyName'], id: json['id']);
+
   @override
   String toString() {
-    return 'Currency, name: $name, id: $id';
+    return '$name ($id)';
   }
 }
