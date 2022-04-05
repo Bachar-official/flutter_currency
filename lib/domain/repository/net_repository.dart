@@ -3,6 +3,8 @@ import 'package:flutter_currency/constants/urls.dart';
 import 'package:flutter_currency/entities/currency.dart';
 import 'package:flutter_currency/entities/currency_pair.dart';
 
+import '../../entities/daily_rate.dart';
+
 class NetRepository {
   late final Dio dio;
 
@@ -34,10 +36,20 @@ class NetRepository {
   }
 
   Future<void> getHistorical() async {
-    var result = await dio.get(await Urls.getHistoricalCurrency(
+    var result = await dio.get(Urls.getHistoricalCurrency(
         Currency(name: '', id: 'USD'), Currency(name: '', id: 'RUB'),
       DateTime(2022, 03, 20), DateTime.now()
     ));
     print(result.data);
+  }
+
+  Future<List<Rate>> getLatestRate(Currency baseCurrency) async {
+    var result = await dio.get(Urls.getLatestRates(baseCurrency));
+    if (result.statusCode == 200) {
+      var map = result.data['rates'] as Map<String, dynamic>;
+      return map.entries.map((entry) => Rate.fromJson(entry)).toList();
+    } else {
+      return [];
+    }
   }
 }

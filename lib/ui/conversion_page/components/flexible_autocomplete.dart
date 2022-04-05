@@ -23,7 +23,7 @@ class FlexibleAutocomplete extends StatelessWidget {
         initialValue:
         TextEditingValue(text: value.toString()),
         optionsBuilder: (TextEditingValue value) =>
-            currencies.where((currency) => currency.name
+            currencies.where((currency) => currency.name!
                 .toLowerCase()
                 .startsWith(value.text.toLowerCase())),
         onSelected: onSelected,
