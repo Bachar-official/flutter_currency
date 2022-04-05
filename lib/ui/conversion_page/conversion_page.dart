@@ -35,6 +35,7 @@ class ConversionPage extends StatelessWidget {
                 children: [
                   const Icon(Icons.arrow_left),
                   Flexible(
+                    flex: 1,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
@@ -45,6 +46,7 @@ class ConversionPage extends StatelessWidget {
                     ),
                   ),
                   FlexibleAutocomplete(
+                      flex: 2,
                       key: sourceKey,
                       value: model.source,
                       currencies: model.currencies,

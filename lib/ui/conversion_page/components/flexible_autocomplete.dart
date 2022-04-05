@@ -6,9 +6,11 @@ class FlexibleAutocomplete extends StatelessWidget {
   final Currency value;
   final List<Currency> currencies;
   final void Function(Currency) onSelected;
+  final int? flex;
 
   const FlexibleAutocomplete({
     Key? key,
+    this.flex,
     required this.value,
     required this.currencies,
     required this.onSelected
@@ -16,6 +18,7 @@ class FlexibleAutocomplete extends StatelessWidget {
 
   @override
   Widget build(context) => Flexible(
+    flex: flex != null ? flex! : 1,
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Autocomplete<Currency>(
@@ -25,7 +28,7 @@ class FlexibleAutocomplete extends StatelessWidget {
         optionsBuilder: (TextEditingValue value) =>
             currencies.where((currency) => currency.name!
                 .toLowerCase()
-                .startsWith(value.text.toLowerCase())),
+                .contains(value.text.toLowerCase())),
         onSelected: onSelected,
         fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
           return TextFormField(
