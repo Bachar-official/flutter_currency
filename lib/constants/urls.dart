@@ -3,34 +3,30 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class Urls {
-  static const _baseUrl = 'http://data.fixer.io/api';
+  static const _baseUrl = 'https://api.exchangerate.host';
 
   static Future<String> getApiKey() async {
     return await rootBundle.loadString('lib/assets/api_key.txt');
   }
 
-  static Future<String> getCurrencies() async {
-    String apiKey = await getApiKey();
-    return '$_baseUrl/symbols?access_key=$apiKey';
+  static String getCurrencies() {
+    return '$_baseUrl/symbols';
   }
 
-  static Future<String> getCurrencyConvert(
-      Currency base, Currency destination) async {
-    String apiKey = await getApiKey();
-    return '$_baseUrl/latest?access_key=$apiKey&base=${base.id}'
-        '&symbols=${destination.id}';
+  static String getCurrencyConvert(Currency base, Currency destination) {
+    return '$_baseUrl/convert?from=${base.id}'
+        '&to=${destination.id}';
   }
 
-  static Future<String> getHistoricalCurrency(
-      Currency base, Currency destination, DateTime from, DateTime to
-      ) async {
-    String apiKey = await getApiKey();
+  static String getLatestRates(Currency base) {
+    return '$_baseUrl/latest?base=${base.id}';
+  }
+
+  static String getHistoricalCurrency(
+      Currency base, Currency destination, DateTime from, DateTime to) {
     DateFormat formatter = DateFormat('yyyy-MM-dd');
     String strFrom = formatter.format(from);
     String strTo = formatter.format(to);
-    return '$_baseUrl/convert?q=${base.id}_${destination.id}&compact=ultra'
-        '&date=$strFrom&endDate=$strTo&apiKey=$apiKey';
+    return '$_baseUrl/timeseries?start_date=$strFrom&end_date=$strTo&base=${base.id}&symbols=${destination.id}';
   }
 }
-
-

@@ -4,7 +4,7 @@ class Currency {
   Currency({required this.name, required this.id});
 
   factory Currency.fromJson(MapEntry<String, dynamic> json) =>
-      Currency(name: json.key, id: json.value);
+      Currency(name: json.value['description'], id: json.value['code']);
 
   @override
   String toString() {

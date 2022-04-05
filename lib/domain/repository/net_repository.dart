@@ -9,7 +9,7 @@ class NetRepository {
   NetRepository({required this.dio});
 
   Future<List<Currency>> getCurrencies() async {
-    var result = await dio.get(await Urls.getCurrencies());
+    var result = await dio.get(Urls.getCurrencies());
     if (result.statusCode == 200) {
       var map = result.data['symbols'] as Map<String, dynamic>;
       return map.entries.map(
@@ -20,14 +20,14 @@ class NetRepository {
   }
 
   Future<CurrencyPair> convert(Currency source, Currency destination) async {
-    var result = await dio.get(await Urls.getCurrencyConvert(source, destination));
+    var result = await dio.get(Urls.getCurrencyConvert(source, destination));
     if (result.statusCode == 200) {
-      print(result);
       var map = result.data as Map<String, dynamic>;
+      num price = map['result'];
       return CurrencyPair(
           source: source,
           destination: destination,
-          price: map.entries.first.value);
+          price: num.parse(price.toStringAsFixed(3)));
     } else {
       return CurrencyPair(source: source, destination: destination, price: 0);
     }

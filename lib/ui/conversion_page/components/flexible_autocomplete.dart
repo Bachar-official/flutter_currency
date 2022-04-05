@@ -16,28 +16,31 @@ class FlexibleAutocomplete extends StatelessWidget {
 
   @override
   Widget build(context) => Flexible(
-    child: Autocomplete<Currency>(
-      key: key,
-      initialValue:
-      TextEditingValue(text: value.toString()),
-      optionsBuilder: (TextEditingValue value) =>
-          currencies.where((currency) => currency.name
-              .toLowerCase()
-              .startsWith(value.text.toLowerCase())),
-      onSelected: onSelected,
-      fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
-        return TextFormField(
-          focusNode: focusNode,
-          controller: textEditingController,
-          onFieldSubmitted: (String value) => onFieldSubmitted,
-          decoration: InputDecoration(
-            suffixIcon: IconButton(
-              icon: const Icon(Icons.clear),
-              onPressed: textEditingController.clear,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Autocomplete<Currency>(
+        key: key,
+        initialValue:
+        TextEditingValue(text: value.toString()),
+        optionsBuilder: (TextEditingValue value) =>
+            currencies.where((currency) => currency.name
+                .toLowerCase()
+                .startsWith(value.text.toLowerCase())),
+        onSelected: onSelected,
+        fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
+          return TextFormField(
+            focusNode: focusNode,
+            controller: textEditingController,
+            onFieldSubmitted: (String value) => onFieldSubmitted,
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.clear),
+                onPressed: textEditingController.clear,
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     ),
   );
 }

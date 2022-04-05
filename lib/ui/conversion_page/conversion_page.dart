@@ -1,9 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_currency/constants/currency_dictionary.dart';
-import 'package:flutter_currency/domain/repository/net_repository.dart';
 import 'package:flutter_currency/domain/view_model/conversion_page_view_model.dart';
-import 'package:flutter_currency/entities/currency.dart';
 import 'package:flutter_currency/ui/conversion_page/components/convert_result.dart';
 import 'package:flutter_currency/ui/conversion_page/components/flexible_autocomplete.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +15,7 @@ class ConversionPage extends StatelessWidget {
         content: Text(message),
       ));
     }
+
     return Consumer<ConversionPageViewModel>(
       builder: (context, model, child) {
         Key sourceKey = UniqueKey();
@@ -36,15 +33,19 @@ class ConversionPage extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Text('I have'),
+                  const Icon(Icons.arrow_left),
                   Flexible(
-                    child: TextField(
-                      controller: amountController,
-                      keyboardType: TextInputType.number,
-                      onChanged: model.setAmount,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: amountController,
+                        keyboardType: TextInputType.number,
+                        onChanged: model.setAmount,
+                      ),
                     ),
                   ),
                   FlexibleAutocomplete(
+                      key: sourceKey,
                       value: model.source,
                       currencies: model.currencies,
                       onSelected: model.onSourceSelected),
@@ -52,8 +53,9 @@ class ConversionPage extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const Text('I want'),
+                  const Icon(Icons.arrow_right),
                   FlexibleAutocomplete(
+                      key: destinationKey,
                       value: model.destination,
                       currencies: model.currencies,
                       onSelected: model.onDestinationSelected),
@@ -61,11 +63,15 @@ class ConversionPage extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: model.convert, child: const Text('Convert')),
+              const Spacer(flex: 1),
               model.pair.price != 0
-                  ? ConvertResult(
-                      pair: model.pair,
-                      amount: model.amount,
-                      isLoading: model.isLoading)
+                  ? Flexible(
+                      flex: 2,
+                      child: ConvertResult(
+                          pair: model.pair,
+                          amount: model.amount,
+                          isLoading: model.isLoading),
+                    )
                   : const SizedBox.shrink()
             ],
           ),

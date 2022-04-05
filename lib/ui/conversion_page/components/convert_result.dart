@@ -18,14 +18,24 @@ class ConvertResult extends StatelessWidget {
     TextStyle currencyStyle = const TextStyle(fontSize: 50);
     BoxFit fit = BoxFit.fitWidth;
     return isLoading
-      ? const Center(
-          child: CircularProgressIndicator(),
-        )
-      : Column(
-          children: [
-            FittedBox(fit: fit, child: Text('$amount ${pair.source}', style: currencyStyle)),
-            FittedBox(fit: fit, child: Text('= ${pair.price * amount} ${pair.destination}', style: currencyStyle))
-          ],
-        );
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                FittedBox(
+                    fit: fit,
+                    child:
+                        Text('$amount ${pair.source}', style: currencyStyle)),
+                const Text('is', style: TextStyle(fontSize: 30)),
+                FittedBox(
+                    fit: fit,
+                    child: Text('${pair.price * amount} ${pair.destination}',
+                        style: currencyStyle))
+              ],
+            ),
+          );
   }
 }
