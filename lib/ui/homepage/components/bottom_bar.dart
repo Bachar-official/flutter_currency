@@ -11,9 +11,11 @@ class BottomBar extends StatelessWidget {
   List<BottomNavigationBarItem> _barItems() {
     return const [
       BottomNavigationBarItem(
-          icon: Icon(Icons.attach_money), label: 'Конвертация'),
-      BottomNavigationBarItem(icon: Icon(Icons.table_rows), label: 'Список'),
-      BottomNavigationBarItem(icon: Icon(Icons.show_chart), label: 'Графики'),
+          icon: Icon(Icons.attach_money),
+          label: 'Convert',
+          tooltip: 'Convert couple of currencies'),
+      BottomNavigationBarItem(icon: Icon(Icons.table_rows), label: 'List'),
+      BottomNavigationBarItem(icon: Icon(Icons.show_chart), label: 'Chart'),
     ];
   }
 

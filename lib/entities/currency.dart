@@ -3,8 +3,8 @@ class Currency {
   late String id;
   Currency({required this.name, required this.id});
 
-  factory Currency.fromJson(Map<String, dynamic> json) =>
-      Currency(name: json['currencyName'], id: json['id']);
+  factory Currency.fromJson(MapEntry<String, dynamic> json) =>
+      Currency(name: json.key, id: json.value);
 
   @override
   String toString() {

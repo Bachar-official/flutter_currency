@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class Urls {
-  static const _baseUrl = 'https://free.currconv.com/api/v7';
+  static const _baseUrl = 'http://data.fixer.io/api';
 
   static Future<String> getApiKey() async {
     return await rootBundle.loadString('lib/assets/api_key.txt');
@@ -11,14 +11,14 @@ class Urls {
 
   static Future<String> getCurrencies() async {
     String apiKey = await getApiKey();
-    return '$_baseUrl/currencies?apiKey=$apiKey';
+    return '$_baseUrl/symbols?access_key=$apiKey';
   }
 
   static Future<String> getCurrencyConvert(
       Currency base, Currency destination) async {
     String apiKey = await getApiKey();
-    return '$_baseUrl/convert?q=${base.id}_${destination.id}'
-        '&compact=ultra&apiKey=$apiKey';
+    return '$_baseUrl/latest?access_key=$apiKey&base=${base.id}'
+        '&symbols=${destination.id}';
   }
 
   static Future<String> getHistoricalCurrency(
