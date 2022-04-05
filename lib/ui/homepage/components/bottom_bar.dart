@@ -14,8 +14,14 @@ class BottomBar extends StatelessWidget {
           icon: Icon(Icons.attach_money),
           label: 'Convert',
           tooltip: 'Convert couple of currencies'),
-      BottomNavigationBarItem(icon: Icon(Icons.table_rows), label: 'List'),
-      BottomNavigationBarItem(icon: Icon(Icons.show_chart), label: 'Chart'),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.table_rows),
+          label: 'List',
+          tooltip: 'Latest currency exchange'),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.show_chart),
+          label: 'Chart',
+          tooltip: 'Currency changes in a time'),
     ];
   }
 

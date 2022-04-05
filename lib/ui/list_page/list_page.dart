@@ -15,7 +15,7 @@ class ListPage extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.arrow_left),
+                  const Icon(Icons.money),
                   FlexibleAutocomplete(
                     currencies: model.currencies,
                     value: model.baseCurrency,
@@ -28,18 +28,6 @@ class ListPage extends StatelessWidget {
                   child: const Text('Get latest rates')),
               model.isLoading
                   ? const CircularProgressIndicator()
-                  // : ListView.builder(
-                  //   shrinkWrap: true,
-                  //   scrollDirection: Axis.vertical,
-                  //   itemBuilder: (BuildContext ctx, int index) {
-                  //     return ListTile(
-                  //       leading: Text(model.rates[index].price.toStringAsFixed(3)),
-                  //         title: Text(model.rates[index].name!),
-                  //       subtitle: Text(model.rates[index].id),
-                  //     );
-                  //   },
-                  //   itemCount: model.rates.length,
-                  // )
                   : Expanded(
                       child: CustomScrollView(slivers: [
                         SliverList(

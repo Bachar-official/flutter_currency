@@ -34,6 +34,7 @@ class ConversionPage extends StatelessWidget {
               Row(
                 children: [
                   const Icon(Icons.arrow_left),
+                  const Icon(Icons.money),
                   Flexible(
                     flex: 1,
                     child: Padding(
@@ -55,6 +56,7 @@ class ConversionPage extends StatelessWidget {
               ),
               Row(
                 children: [
+                  const Icon(Icons.money),
                   const Icon(Icons.arrow_right),
                   FlexibleAutocomplete(
                       key: destinationKey,

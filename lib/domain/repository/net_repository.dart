@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_currency/constants/urls.dart';
 import 'package:flutter_currency/entities/currency.dart';
 import 'package:flutter_currency/entities/currency_pair.dart';
+import 'package:flutter_currency/entities/history_rate.dart';
 
 import '../../entities/daily_rate.dart';
 
@@ -14,8 +15,7 @@ class NetRepository {
     var result = await dio.get(Urls.getCurrencies());
     if (result.statusCode == 200) {
       var map = result.data['symbols'] as Map<String, dynamic>;
-      return map.entries.map(
-              (element) => Currency.fromJson(element)).toList();
+      return map.entries.map((element) => Currency.fromJson(element)).toList();
     } else {
       return [];
     }
@@ -35,12 +35,18 @@ class NetRepository {
     }
   }
 
-  Future<void> getHistorical() async {
-    var result = await dio.get(Urls.getHistoricalCurrency(
-        Currency(name: '', id: 'USD'), Currency(name: '', id: 'RUB'),
-      DateTime(2022, 03, 20), DateTime.now()
-    ));
-    print(result.data);
+  Future<List<HistoryRate>> getHistorical(
+      Currency source, Currency destination, DateTime from) async {
+    var result = await dio.get(
+        Urls.getHistoricalCurrency(source, destination, from, DateTime.now()));
+    if (result.statusCode == 200) {
+      var map = result.data['rates'] as Map<String, dynamic>;
+      return map.entries
+          .map((entry) => HistoryRate.fromJson(entry, destination.id))
+          .toList();
+    } else {
+      return [];
+    }
   }
 
   Future<List<Rate>> getLatestRate(Currency baseCurrency) async {
