@@ -11,4 +11,7 @@ class HistoryRate {
           MapEntry<String, dynamic> json, String currencyId) =>
       HistoryRate(
           date: DateTime.parse(json.key), price: json.value[currencyId]);
+
+  @override
+  String toString() => 'Rate, date: $date, price: $price';
 }
