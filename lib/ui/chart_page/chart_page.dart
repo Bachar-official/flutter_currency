@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ChartPage extends StatelessWidget {
+  const ChartPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     void showNotification(Color color, String message) {
@@ -18,7 +20,6 @@ class ChartPage extends StatelessWidget {
     }
 
     List<FlSpot> spots(List<HistoryRate> rates) {
-      rates.forEach(print);
       return rates
           .map((entry) => FlSpot(entry.date.millisecondsSinceEpoch.toDouble(),
               entry.price.toDouble()))
@@ -82,7 +83,7 @@ class ChartPage extends StatelessWidget {
               model.rates.isNotEmpty
                   ? Flexible(
                       child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
+                      padding: const EdgeInsets.fromLTRB(10, 5, 15, 5),
                       child: LineChart(
                         LineChartData(
                           titlesData: FlTitlesData(
